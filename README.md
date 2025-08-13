@@ -2,10 +2,6 @@
 
 A modern Vue.js-based procurement transaction management system designed for awarding companies and suppliers to manage procurement workflows efficiently.
 
-## 🚀 Project Overview
-
-The Moneda system streamlines procurement transactions through a two-step wizard interface, allowing users to manage awarding company information and supplier details in a structured, user-friendly manner.
-
 ## 📁 Project Link
 
 https://moneda-fe.netlify.app/
@@ -36,7 +32,8 @@ moneda-test/
 │   │   └── index.ts                 # Base URL configuration
 │   ├── views/                       # Page components
 │   │   ├── Dashboard.vue            # Main dashboard view
-│   │   └── Transactions.vue         # Transaction creation view
+│   │   ├── Transactions.vue         # Transaction creation view
+│   │   └── NotFound.vue             # 404 error page
 │   ├── App.vue                      # Root application component
 │   ├── main.js                      # Application entry point
 │   └── router.js                    # Vue Router configuration
@@ -83,11 +80,19 @@ moneda-test/
   - Multi-step navigation
   - Automatic form clearing on successful submission
 
-### 3. **Navigation Components**
+### 3. **NotFound.vue**
+- **Purpose**: 404 error page for unmatched routes
+- **Features**:
+  - User-friendly error messaging
+  - Navigation back to dashboard
+  - Smart back button with browser history support
+  - Responsive design matching brand aesthetics
+
+### 4. **Navigation Components**
 - **Navbar.vue**: Top navigation with mobile menu toggle
 - **Sidebar.vue**: Left sidebar with navigation links and mobile overlay
 
-### 4. **Dashboard Components**
+### 5. **Dashboard Components**
 - **DashboardCard.vue**: Metric display cards
 - **DashboardChart.vue**: Transaction type visualization
 - **DashboardCompanies.vue**: Awarding companies listing

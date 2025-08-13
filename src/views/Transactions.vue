@@ -2,8 +2,8 @@
   <div>
     <router-link to="/">
       <div class="inline-flex items-center gap-1 text-monedaOrange">
-        <i class="iconsax text-xl" icon-name="arrow-left"></i>
-        <span class="font-semibold">Back</span>
+      <i class="iconsax text-xl" icon-name="arrow-left"></i>
+      <span class="font-semibold">Back</span>
       </div>
     </router-link>
 
@@ -528,7 +528,7 @@
                     <option value="dap">DAP</option>
                     <option value="ddp">DDP</option>
                   </select>
-                </div>
+    </div>
 
                 <div>
                   <label class="block text-[12px] text-gray-600 mb-1"
@@ -544,7 +544,7 @@
                   </select>
                 </div>
 
-                <div>
+    <div>
                   <label class="block text-[12px] text-gray-600 mb-1"
                     >Delivery Time</label
                   >
@@ -730,7 +730,7 @@
           </div>
         </div>
       </div>
-    </div>
+  </div>
   </div>
 </template>
 
