@@ -11,6 +11,43 @@
   </div>
 
   <div class="mt-20">
+    <!-- Error Card for Summary Fetch Failures -->
+    <div v-if="summaryError" class="mb-6">
+      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-red-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-semibold text-red-800">
+              Sorry, Something Went Wrong.
+            </h3>
+            <div class="mt-2 text-sm text-red-700">
+              <p>Failed to load dashboard summary: {{ summaryError }}</p>
+            </div>
+            <div class="mt-3">
+              <button
+                @click="fetchSummary"
+                class="bg-red-100 text-red-800 px-3 py-2 rounded-md text-sm font-medium hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 gap-6 text-start lg:grid-cols-4 items-stretch">
       <div class="lg:col-span-1">
         <div
@@ -101,7 +138,44 @@
         <div class="font-medium text-lg mb-2">
           Transaction by awarding companies
         </div>
-        <div class="border rounded-lg p-2">
+        <!-- Error Card for Companies Fetch Failures -->
+        <div v-if="companiesError" class="mb-6">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg
+                  class="h-5 w-5 text-red-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-semibold text-red-800">
+                  Sorry, Something Went Wrong.
+                </h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <p>Failed to load companies data: {{ companiesError }}</p>
+                </div>
+                <div class="mt-3">
+                  <button
+                    @click="fetchCompanies"
+                    class="bg-red-100 text-red-800 px-3 py-2 rounded-md text-sm font-medium hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  >
+                    Try again
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border rounded-lg p-2" v-if="!companiesError">
           <DashboardCompanies :companies="companies" />
         </div>
       </div>
@@ -133,11 +207,12 @@ const companiesError = ref(null);
 const fetchSummary = async () => {
   try {
     loadingSummary.value = true;
+    summaryError.value = null;
     const res = await fetch(`${baseUrl}/summary`);
-    if (!res.ok) throw new Error("Failed to fetch");
+    if (!res.ok) throw new Error("Failed to load data");
     summary.value = await res.json();
 
-    console.log("Fetched companies:", companies.value);
+    console.log("Fetched companies:", summary.value);
   } catch (err) {
     summaryError.value = err.message;
   } finally {
@@ -148,10 +223,11 @@ const fetchSummary = async () => {
 const fetchCompanies = async () => {
   try {
     loadingCompanies.value = true;
+    companiesError.value = null; 
     const res = await fetch(`${baseUrl}/awarding-company`);
     if (!res.ok) throw new Error("Failed to fetch");
     companies.value = await res.json();
-    
+
     console.log("Fetched companies:", companies.value);
   } catch (err) {
     companiesError.value = err.message;
