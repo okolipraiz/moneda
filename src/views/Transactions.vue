@@ -660,7 +660,7 @@
                 </div>
                 <label for="pro-forma-upload" class="block">
                   <div
-                    class="w-1/3 rounded-[8px] border border-gray-300 bg-white hover:border-monedaOrange transition-colors cursor-pointer"
+                    class="md:w-1/3 rounded-[8px] border border-gray-300 bg-white hover:border-monedaOrange transition-colors cursor-pointer"
                   >
                     <div class="px-6 py-5 flex items-center gap-3">
                       <svg
@@ -916,6 +916,54 @@ const saveDraft = () => {
   });
 };
 
+const clearAllInputs = () => {
+  // Reset awarding step
+  awarding.value = {
+    awarding_company_id: "",
+    previous_transaction: "",
+    estimated_value_currency: "usd",
+    estimated_value: "",
+    awarding_payment_terms: "",
+    incoterms: "",
+    executionDays: "",
+    payment_after_invoice: "",
+    purchase_order: null,
+    previous_invoice: null,
+    bank_statement: null,
+  };
+
+  // Reset suppliers step
+  suppliers.value = {
+    soc_name: "",
+    country: "",
+    continent: "",
+    basis_of_selection: "",
+    incoterms: "",
+    previous_purchase: "",
+    delivery_time: "",
+    procurement_type: "",
+    payment_terms: "",
+    item_cost_currency: "usd",
+    item_cost: "",
+    logistics_cost_currency: "usd",
+    logistics_cost: "",
+    other_cost_currency: "usd",
+    other_cost: "",
+    funding_request_currency: "usd",
+    funding_request: "",
+    pro_forma_invoice: null,
+  };
+
+  // Reset step to 1
+  currentStep.value = 1;
+
+  // Clear any file input errors
+  purchaseOrderError.value = "";
+  previousInvoiceError.value = "";
+  bankStatementError.value = "";
+  proFormaError.value = "";
+};
+
 const onSubmit = async () => {
   if (!isStep2Valid.value) return;
 
@@ -985,6 +1033,7 @@ const onSubmit = async () => {
       throw new Error(text || "Failed to submit");
     }
     toast.success("Transaction submitted");
+    clearAllInputs(); // Call the new function here
   } catch (err) {
     console.error("Submit failed", err);
     toast.error("Submit failed");
