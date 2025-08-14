@@ -2,7 +2,7 @@
 
 A modern Vue.js-based procurement transaction management system designed for awarding companies and suppliers to manage procurement workflows efficiently.
 
-## 📁 Project Link
+## 🔗 Project Link
 
 https://moneda-fe.netlify.app/
 
@@ -52,6 +52,7 @@ moneda-test/
 - **HTTP Client**: Native Fetch API
 - **Notifications**: Vue Sonner (toast notifications)
 - **TypeScript**: For type safety (composables)
+- **Netlify**: For Deployment
 
 ## 🔧 Core Components
 
